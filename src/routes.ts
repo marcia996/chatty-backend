@@ -14,7 +14,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, authRoutes.signoutRoute());
 
     // check if the token exists
-    app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
+   // app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
   };
   routes();
 };
