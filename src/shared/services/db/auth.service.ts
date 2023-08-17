@@ -19,6 +19,22 @@ class AuthService {
     const user: IAuthDocument = (await AuthModel.findOne({ username: Helpers.firstLetterUppercase(username) }).exec()) as IAuthDocument;
     return user;
   }
-}
+  public async getAuthUserbyEmail(email: string): Promise<IAuthDocument> {
+    const user: IAuthDocument = (await AuthModel.findOne({ email: Helpers.lowerCase(email) }).exec()) as IAuthDocument;
+    return user;
+  }
+
+  public async updatePasswordToken(authId:string,token:string,tokenExpiration:number):Promise<void>
+  {
+    await AuthModel.updateOne({_id:authId},{passwordResetToken:token,passwordResetExpires:tokenExpiration});
+  }
+
+  public async getAuthUserByPasswordToken(token:string):Promise<IAuthDocument>{
+    // token is valid
+    const user:IAuthDocument= (await AuthModel.findOne({passwordResetToken:token,passwordResetExpires:{$gt:Date.now()}}).exec())as IAuthDocument;
+    return user;
+  }}
+
+
 
 export const authService: AuthService = new AuthService();

@@ -14,6 +14,10 @@ class Config {
   public CLOUD_NAME: string | undefined;
   public CLOUD_API_KEY: string | undefined;
   public CLOUD_API_SECRET: string | undefined;
+  public SENDER_EMAIL: string | undefined;
+  public SENDER_EMAIL_PASSWORD: string | undefined;
+  public SENDGRID_API_KEY: string | undefined;
+  public SENDGRID_SENDER: string | undefined;
 
   private readonly DEFAULT_DATABASE_URL = 'mongodb://127.0.0.1:27017/chattyapp-backend';
   constructor() {
@@ -27,6 +31,10 @@ class Config {
     this.CLOUD_NAME = process.env.CLOUD_NAME || '';
     this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
+    this.SENDER_EMAIL = process.env.SENDER_EMAIL || '';
+    this.SENDER_EMAIL_PASSWORD = process.env.SENDER_EMAIL_PASSWORD || '';
+    this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
+    this.SENDGRID_SENDER = process.env.SENDGRID_SENDER || '';
   }
   // 为每个需要日志记录的模块 提供了一种方便的方式来创建其自己的
   // 日志记录器

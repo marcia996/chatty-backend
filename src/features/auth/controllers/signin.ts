@@ -8,7 +8,14 @@ import { loginSchema } from '@auth/schemes/signin';
 import { IAuthDocument } from '@auth/interfaces/auth.interfaces';
 import { BadRequestError } from '@global/helpers/error-handler';
 import { userService } from '@services/db/user.services';
-import { IUserDocument } from '@user/interfaces/user.interface';
+import { IResetPasswordParams, IUserDocument } from '@user/interfaces/user.interface';
+import { mailTransport } from '@services/emails/mail.transport';
+import { emailQueue } from '@services/queues/email.queue';
+import moment from 'moment';
+import publicIP from 'ip';
+import { resetPasswordTemplate } from '@services/emails/templates/reset-password/reset-password-template';
+
+
 
 export class SignIn {
   @joiValidation(loginSchema)
@@ -26,7 +33,7 @@ export class SignIn {
     const user: IUserDocument = await userService.getUserByAuthId(`${existingUser._id}`);
     const userJwt: string = JWT.sign(
       {
-        userId: existingUser._id,
+        userId:user._id,
         uId: existingUser.uId,
         email: existingUser.email,
         username: existingUser.username,
@@ -34,6 +41,7 @@ export class SignIn {
       },
       config.JWT_TOKEN!
     );
+
     req.session = { jwt: userJwt };
     const userDocument: IUserDocument = {
       ...user,
