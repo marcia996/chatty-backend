@@ -11,6 +11,7 @@ export class AuthMiddleware {
     }
 
     try {
+      // jwt de payload gei req.currentUSER
       const payload: AuthPayload = JWT.verify(req.session?.jwt, config.JWT_TOKEN!) as AuthPayload;
       req.currentUser = payload;
     } catch (error) {

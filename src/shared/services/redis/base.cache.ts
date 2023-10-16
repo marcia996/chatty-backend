@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
 import Logger from 'bunyan';
-import { config } from '@root/config';
+import { config } from '../../../config';
 
 export type RedisClient = ReturnType<typeof createClient>;
 //其它的class 可以继承这个 abstract class
