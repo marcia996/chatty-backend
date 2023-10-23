@@ -13,8 +13,9 @@ import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 import routes from '@root/routes';
-import { IErrorResponse, CustomerError } from '@global/helpers/error-handler';
+import { IErrorResponse, CustomError } from '@global/helpers/error-handler';
 import logger from 'bunyan';
+import { SocketIOPostHandler } from '@sockets/post';
 
 const SERVER_PORT = 5000;
 const log: logger = config.createLogger('server');
@@ -68,7 +69,7 @@ export class ChattyServer {
     });
     app.use((error: IErrorResponse, req: Request, res: Response, next: NextFunction) => {
       log.error(error);
-      if (error instanceof CustomerError) {
+      if (error instanceof CustomError) {
         return res.status(error.statusCode).json(error.serializeErrors());
       }
       next();
@@ -112,6 +113,7 @@ export class ChattyServer {
   }
 
   private socketIOConnections(io: Server): void {
-    log.info('socket connection');
+    const postSocketHandler:SocketIOPostHandler= new SocketIOPostHandler(io);
+    postSocketHandler.listen();
   }
 }

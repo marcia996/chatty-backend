@@ -92,7 +92,8 @@ export class UserCache extends BaseCache {
     try {
       if (!this.client.isOpen) {
         await this.client.connect(); //score is uid,  key is userobjectid
-        await this.client.ZADD('user', { score: parseInt(userUId, 10), value: `${key}` });
+        // object for the zadd 
+        await this.client.ZADD('user',{score:parseInt(userUId, 10), value:`${key}`});
         await this.client.HSET(`users:${key}`, dataToSave);
       }
     } catch (error) {
