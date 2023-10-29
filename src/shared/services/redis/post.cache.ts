@@ -4,7 +4,7 @@ import Logger from 'bunyan';
 import {config} from '../../../config';
 import { ISavePostToCache, IPostDocument } from '../../../features/post/interfaces/post.interface';
 import { ServerError } from '../../globals/helpers/error-handler';
-import {IReactions} from '../../../features/post/interfaces/post.interface';
+import {IReactions} from '@root/features/reactions/interfaces/reaction.interface';
 // 引入 redisCommandRawReply
 import {RedisCommandRawReply} from '@redis/client/dist/lib/commands';
 const log:Logger= config.createLogger('postCache');
@@ -72,7 +72,7 @@ export class PostCache extends BaseCache
        multi.HSET(`post:${key}`,dataTosave);
        //update the number of postcount
        const count:number= parseInt(postCount[0],10)+1;
-       multi.HSET(`users:${currentUserId}`,['postCount',count]);
+       multi.HSET(`users:${currentUserId}`,['postsCount',count]);
        multi.exec();
       } catch (error) {
               log.error(error);
