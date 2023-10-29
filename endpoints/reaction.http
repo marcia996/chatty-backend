@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo":"653ac397fa9ce65b376d3164",
+  "postId":"653aa83709be803ae04cb83c",
+  "type": "love",
+  "previousReaction": "",
+  "profilePicture": "https://res.cloudinary.com/dirukcsms/image/upload/v1691784584/64d69587f0724f9a4a7386cd",
+  "postReactions": {"like":0,"love":1,"happy":0,"sad":0,"wow":0,"angry":0}
+}
+// when it's deleted. all will become 0
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/653aa83709be803ae04cb83c
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+}
