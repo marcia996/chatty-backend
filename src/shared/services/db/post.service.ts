@@ -49,7 +49,7 @@ class PostService
 
   public async editPost(postId:string,updatedPost:IPostDocument):Promise<void>
   {
-    // $set meaning  update property in object 
+    // $set meaning  update property in object
     const updatePost:UpdateQuery<IPostDocument>=PostModel.updateOne({_id:postId},{$set:updatedPost});
     await Promise.all([updatePost]);
   }
