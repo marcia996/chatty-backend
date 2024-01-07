@@ -9,8 +9,9 @@ import { IEmailJob, IUserJob } from '@user/interfaces/user.interface';
 import {IPostJobData } from '@post/interfaces/post.interface';
 import { IReactionJob } from '@reactions/interfaces/reaction.interface';
 import { ICommentJob } from '@comment/interfaces/comment.interface';
+import { IFollowerJobData } from '@follower/interfaces/follower.interface';
 
-type IBaseJobData = IAuthJob | IUserJob |IEmailJob|IPostJobData|IReactionJob|ICommentJob;
+type IBaseJobData = IAuthJob | IUserJob |IEmailJob|IPostJobData|IReactionJob|ICommentJob|IFollowerJobData;
 
 //bullAdapters为BullAdapter 类型的数组
 let bullAdapters: BullAdapter[] = [];

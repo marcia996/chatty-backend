@@ -5,6 +5,7 @@ import { serverAdapter } from '@services/queues/base.queue';
 import { Application } from 'express';
 import {postRoutes} from '@post/routes/postRoutes';
 import { reactionRoutes } from '@reactions/routes/reaction.Routes';
+import { followerRoutes } from '@follower/routes/followerRoutes';
 // base path
 const BASE_PATH = '/api/v1';
 
@@ -22,6 +23,7 @@ export default (app: Application) => {
     // verify user first if not, it will show token is not available
     app.use(BASE_PATH, authMiddleware.verifyUser,postRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser,reactionRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser,followerRoutes.routes());
   };
   routes();
 };
